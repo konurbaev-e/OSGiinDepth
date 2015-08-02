@@ -29,7 +29,6 @@ public class Seller implements Participant, Runnable {
     }
     public void onRejection(Auction auction, String item,
                             float bestBid) {
-        System.out.println("No bidders accepted asked price for " + item
-                + ", best bid was " + bestBid);
+        System.out.println("No bidders accepted asked price for " + item + ", best bid was " + bestBid);
     }
 }
