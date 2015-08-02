@@ -14,6 +14,7 @@
         <module>org.konurbaev.auction.spi</module>
         <module>org.konurbaev.auction.auctioneer.sealed</module>
         <module>org.konurbaev.auction.auditor.sealed</module>
+        <module>org.konurbaev.auction.manager</module>
     </modules>
     <name>auction-project</name>
     <description>auction-project</description>
