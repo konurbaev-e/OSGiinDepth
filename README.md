@@ -1,0 +1,2 @@
+# OSGiinDepth
+OSGiinDepth Maven Project
