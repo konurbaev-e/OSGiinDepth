@@ -34,8 +34,7 @@ public class SealedFirstPriceAuction implements Auction {
         }
         book.ask = price;
         book.seller = seller;
-        System.out.println(seller.getName() + " offering item "
-                + item + " for the asking price of " + price);
+        System.out.println(seller.getName() + " offering item " + item + " for the asking price of " + price);
         return price;
     }
     public Float bid(String item, float price, Participant buyer)
