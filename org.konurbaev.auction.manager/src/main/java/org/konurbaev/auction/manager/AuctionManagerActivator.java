@@ -20,19 +20,25 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     public void start(BundleContext bundleContext) throws Exception {
         this.bundleContext = bundleContext;
 
+        ServiceReference[] auctioneerReferences = bundleContext.getServiceReferences(Auctioneer.class.getName(),null);
+        if (auctioneerReferences != null) {
+            for (ServiceReference serviceReference : auctioneerReferences) {
+                registerService(serviceReference);
+            }
+        }
+
+        ServiceReference[] auditorReferences = bundleContext.getServiceReferences(Auditor.class.getName(),null);
+        if (auditorReferences != null) {
+            for (ServiceReference serviceReference : auditorReferences) {
+                registerService(serviceReference);
+            }
+        }
+
         String auctionOrAuctioneerFilter =
                 "(|" +
                         "(objectClass=" + Auctioneer.class.getName() + ")" +
                         "(objectClass=" + Auditor.class.getName() + ")" +
                         ")";
-
-        ServiceReference [] references =
-                bundleContext.getServiceReferences(null, auctionOrAuctioneerFilter);
-        if (references != null) {
-            for (ServiceReference serviceReference : references) {
-                registerService(serviceReference);
-            }
-        }
 
         bundleContext.addServiceListener(this,
                 auctionOrAuctioneerFilter);

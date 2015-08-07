@@ -15,6 +15,7 @@
         <module>org.konurbaev.auction.auctioneer.sealed</module>
         <module>org.konurbaev.auction.auditor.sealed</module>
         <module>org.konurbaev.auction.manager</module>
+        <module>org.konurbaev.auction.buyer.http</module>
     </modules>
     <name>auction-project</name>
     <description>auction-project</description>
@@ -24,7 +25,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <restlet.version>2.1.2</restlet.version>
+        <restlet.version>2.3.0</restlet.version>
         <!-- OSGi bundles properties -->
         <konurbaev.osgi.import>
             *
@@ -67,7 +68,7 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -116,12 +117,12 @@
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient-osgi</artifactId>
-                <version>4.3.5</version>
+                <version>4.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpcore-osgi</artifactId>
-                <version>4.3.2</version>
+                <version>4.4.1</version>
             </dependency>
 
             <!-- Core OSGi -->
@@ -212,6 +213,27 @@
                 <version>3.5.0</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.http.bundle</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.http.jetty</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.http.api</artifactId>
+                <version>2.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.http.base</artifactId>
+                <version>2.4.0</version>
+            </dependency>
+
 
             <!-- Declarative Services support -->
             <dependency>
@@ -263,6 +285,7 @@
                 <artifactId>pax-web-jetty-bundle</artifactId>
                 <version>3.0.0</version>
             </dependency>
+
 
             <!-- Test Dependencies -->
             <dependency>
