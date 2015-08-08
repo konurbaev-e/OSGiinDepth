@@ -8,6 +8,7 @@ public class SealedFirstPriceAuditorActivator implements BundleActivator {
     private ServiceRegistration serviceRegistration;
 
     public void start(BundleContext bundleContext) throws Exception {
+        System.out.println("SealedFirstPriceAuditorActivator is starting...");
         serviceRegistration =
                 bundleContext.registerService(
                         Auditor.class.getName(),

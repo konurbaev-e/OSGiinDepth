@@ -18,6 +18,7 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
             new HashMap<ServiceReference, Auditor>();
 
     public void start(BundleContext bundleContext) throws Exception {
+        System.out.println("AuctionManagerActivator is starting...");
         this.bundleContext = bundleContext;
 
         ServiceReference[] auctioneerReferences = bundleContext.getServiceReferences(Auctioneer.class.getName(),null);
@@ -49,6 +50,7 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
+        System.out.println("AuctionManagerActivator.serviceChanged is starting...");
         ServiceReference serviceReference = serviceEvent.getServiceReference();
 
         switch (serviceEvent.getType()) {
@@ -73,6 +75,7 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     private void registerService(ServiceReference serviceReference) {
+        System.out.println("AuctionManagerActivator.registerService is starting...");
         Object serviceObject =
                 bundleContext.getService(serviceReference);
 
@@ -84,11 +87,13 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     private void registerAuditor(ServiceReference auditorServiceReference, Auditor auditor) {
+        System.out.println("AuctionManagerActivator.registerAuditor is starting...");
         registeredAuditors.put(auditorServiceReference, auditor);
     }
 
     private void registerAuctioneer(ServiceReference auctioneerServiceReference,
                                     Auctioneer auctioneer) {
+        System.out.println("AuctionManagerActivator.registerAuctioneer is starting...");
         Auction auction =
                 new AuctionWrapper(auctioneer, registeredAuditors.values());
 
@@ -100,10 +105,12 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     private void unregisterAuditor(ServiceReference serviceReference) {
+        System.out.println("AuctionManagerActivator.unregisterAuditor is starting...");
         registeredAuditors.remove(serviceReference);
     }
 
     private void unregisterAuctioneer(ServiceReference auctioneerServiceReference) {
+        System.out.println("AuctionManagerActivator.unregisterAuctioneer is starting...");
         ServiceRegistration auctionServiceRegistration =
                 registeredAuctions.remove(auctioneerServiceReference);
 

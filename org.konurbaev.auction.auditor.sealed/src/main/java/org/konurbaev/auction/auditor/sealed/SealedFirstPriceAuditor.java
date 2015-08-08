@@ -10,16 +10,19 @@ public class SealedFirstPriceAuditor implements Auditor {
     public void onAcceptance(Auctioneer auctioneer, Participant participant,
                              String item, float ask,
                              float acceptedBid, Float[] bids) {
+        System.out.println("SealedFirstPriceAuditor.onAcceptance is starting...");
         verify(auctioneer, participant, bids);
     }
 
     public void onRejection(Auctioneer auctioneer, Participant participant,
                             String item, float ask, Float[] rejectedBids) {
+        System.out.println("SealedFirstPriceAuditor.onRejection is starting...");
         verify(auctioneer, participant, rejectedBids);
     }
 
     private void verify(Auctioneer auctioneer, Participant participant,
                         Float[] bids) {
+        System.out.println("SealedFirstPriceAuditor.verify is starting...");
         if ("Sealed-First-Price".equals(
                 auctioneer.getAuctionProperties().get(Auction.TYPE))) {
             for (int i = 0; i < bids.length - 1; i++) {

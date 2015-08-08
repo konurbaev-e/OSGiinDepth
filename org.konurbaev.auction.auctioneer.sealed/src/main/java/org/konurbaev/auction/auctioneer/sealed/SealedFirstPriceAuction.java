@@ -16,11 +16,13 @@ public class SealedFirstPriceAuction implements Auction {
     private Map<String, Book> openTransactions;
     private final int maxAllowedBids;
     public SealedFirstPriceAuction(int duration) {
+        System.out.println("SealedFirstPriceAuction constuctor is starting...");
         maxAllowedBids = duration;
         openTransactions = new HashMap<String, Book>();
     }
     public Float ask(String item, float price, Participant seller)
             throws InvalidOfferException {
+        System.out.println("SealedFirstPriceAuction.ask is starting...");
         if (price <= 0.0f) {
             throw new InvalidOfferException("Ask must be greater than zero.");
         }
@@ -39,6 +41,7 @@ public class SealedFirstPriceAuction implements Auction {
     }
     public Float bid(String item, float price, Participant buyer)
             throws InvalidOfferException {
+        System.out.println("SealedFirstPriceAuction.bid is starting...");
         if (price <= 0.0f) {
             throw new InvalidOfferException("Bid must be greater than zero.");
         }

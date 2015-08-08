@@ -18,14 +18,17 @@ public class AuctionWrapper implements Auction {
         private Participant delegate;
 
         public ParticipantWrapper(Participant delegate) {
+            System.out.println("ParticipantWrapper constuctor is starting...");
             this.delegate = delegate;
         }
 
         public String getName() {
+            System.out.println("ParticipantWrapper.getName() is starting...");
             return delegate.getName();
         }
 
         public void onAcceptance(Auction auction, String item, float price) {
+            System.out.println("ParticipantWrapper.onAcceptance is starting...");
             delegate.onAcceptance(auction, item, price);
 
             Float [] bids = bidsPerItem.get(item).toArray(new Float [0]);
@@ -37,6 +40,7 @@ public class AuctionWrapper implements Auction {
 
         public void onRejection(Auction auction, String item,
                                 float bestBid) {
+            System.out.println("ParticipantWrapper.onRejection is starting...");
             delegate.onRejection(auction, item, bestBid);
 
             Float [] bids = bidsPerItem.get(item).toArray(new Float [0]);
@@ -48,12 +52,14 @@ public class AuctionWrapper implements Auction {
     }
 
     public AuctionWrapper(Auctioneer delegate, Collection<Auditor> auditors) {
+        System.out.println("AuctionWrapper constructor is starting...");
         this.delegate = delegate;
         this.auditors = auditors;
     }
 
     public Float ask(String item, float price, Participant seller)
             throws InvalidOfferException {
+        System.out.println("AuctionWrapper.ask is starting...");
         ask = price;
         return delegate.getAuction().ask(item, price,
                 new ParticipantWrapper(seller));
@@ -61,6 +67,7 @@ public class AuctionWrapper implements Auction {
 
     public Float bid(String item, float price, Participant buyer)
             throws InvalidOfferException {
+        System.out.println("AuctionWrapper.bid is starting...");
         List<Float> bids = bidsPerItem.get(item);
         if (bids == null) {
             bids = new LinkedList<Float>();

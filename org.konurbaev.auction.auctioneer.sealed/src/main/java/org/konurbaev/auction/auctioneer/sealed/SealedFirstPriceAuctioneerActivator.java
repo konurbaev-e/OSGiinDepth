@@ -8,6 +8,8 @@ public class SealedFirstPriceAuctioneerActivator implements BundleActivator {
     private ServiceRegistration serviceRegistration;
 
     public void start(BundleContext bundleContext) throws Exception {
+
+        System.out.println("SealedFirstPriceAuctioneerActivator is starting SealedFirstPriceAuctioneer (Auctioneer) service...");
         SealedFirstPriceAuctioneer auctioneer = new SealedFirstPriceAuctioneer();
 
         serviceRegistration =

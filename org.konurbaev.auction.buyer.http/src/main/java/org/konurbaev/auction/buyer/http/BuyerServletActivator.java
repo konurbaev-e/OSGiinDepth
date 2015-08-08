@@ -14,6 +14,7 @@ public class BuyerServletActivator implements BundleActivator, ServiceListener {
     private HttpService httpService;
 
     public void start(BundleContext bundleContext) throws Exception {
+        System.out.println("BuyerServletActivator is starting...");
 
         this.bundleContext = bundleContext;
 
@@ -39,6 +40,7 @@ public class BuyerServletActivator implements BundleActivator, ServiceListener {
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
+        System.out.println("BuyerServletActivator.serviceChanged is starting...");
         try {
             switch (serviceEvent.getType()) {
                 case ServiceEvent.REGISTERED: {
@@ -59,6 +61,7 @@ public class BuyerServletActivator implements BundleActivator, ServiceListener {
 
     private void start(ServiceReference serviceReference)
             throws ServletException, NamespaceException {
+        System.out.println("BuyerServletActivator (private void start) is starting...");
         Auction auction = (Auction)
                 bundleContext.getService(serviceReference);
 
