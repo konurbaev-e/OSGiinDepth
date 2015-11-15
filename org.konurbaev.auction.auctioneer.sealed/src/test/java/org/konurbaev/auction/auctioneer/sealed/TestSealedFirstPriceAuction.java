@@ -38,7 +38,7 @@ public class TestSealedFirstPriceAuction {
     @Test
     public void testSingleBidAsk() throws InvalidOfferException {
 
-        SealedFirstPriceAuction auction = new SealedFirstPriceAuction(1);
+        SealedFirstPriceAuction auction = new SealedFirstPriceAuction("1");
 
         MockParticipant participant = new MockParticipant();
 
@@ -46,21 +46,6 @@ public class TestSealedFirstPriceAuction {
         auction.bid("book", new Float(50.0), participant);
 
         Assert.assertEquals(2, participant.numberOfAcceptances);
-    }
-
-    @Test
-    public void testAuctionnerActivator() throws Exception {
-
-        BundleContext bundleContext = mock(BundleContext.class);
-        when(bundleContext.getServiceReference(Auctioneer.class.getName())).thenReturn(mock(ServiceReference.class));
-
-        SealedFirstPriceAuctioneerActivator activator =  new SealedFirstPriceAuctioneerActivator();
-
-        activator.start(bundleContext);
-
-        ServiceReference reference = bundleContext.getServiceReference(Auctioneer.class.getName());
-
-        Assert.assertNotNull(reference);
     }
 
 }

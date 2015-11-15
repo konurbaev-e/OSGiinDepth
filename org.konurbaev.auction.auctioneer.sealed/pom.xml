@@ -108,7 +108,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>${bundle.namespace}.SealedFirstPriceAuctioneerActivator</Bundle-Activator>
+                        <!--<Bundle-Activator>${bundle.namespace}.SealedFirstPriceAuctioneerActivator</Bundle-Activator>-->
                     </instructions>
                 </configuration>
             </plugin>

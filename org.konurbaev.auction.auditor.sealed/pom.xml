@@ -100,7 +100,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>${bundle.namespace}.SealedFirstPriceAuditorActivator</Bundle-Activator>
+                        <!--<Bundle-Activator>${bundle.namespace}.SealedFirstPriceAuditorActivator</Bundle-Activator>-->
                     </instructions>
                 </configuration>
             </plugin>

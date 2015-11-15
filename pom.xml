@@ -61,7 +61,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
-                <version>1.7.12</version>
+                <version>1.7.13</version>
             </dependency>
 
             <!-- Java EE -->
@@ -286,7 +286,6 @@
                 <version>3.0.0</version>
             </dependency>
 
-
             <!-- Test Dependencies -->
             <dependency>
                 <groupId>org.testng</groupId>
@@ -339,11 +338,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-scr-plugin</artifactId>
-                    <!--<version>1.10.0</version>-->
                     <version>1.21.0</version>
-                    <!--<configuration>
-                        <generateAccessors>false</generateAccessors>
-                    </configuration>-->
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
@@ -360,6 +355,8 @@
                                 Bnd-LastModified,Built-By,Private-Package,Tool,Build-Jdk,Include-Resource,Ignore-Package,Private-Package,Bundle-DocURL
                             </_removeheaders>
                             <Include-Resource>{maven-resources}</Include-Resource>
+                            <_dsannotations>*</_dsannotations>
+                            <Service-Component>*</Service-Component>
                         </instructions>
                     </configuration>
                 </plugin>

@@ -1,27 +1,52 @@
 package org.konurbaev.auction.auctioneer.sealed;
 
 import java.util.*;
+
+import org.apache.felix.scr.annotations.*;
+import org.apache.felix.scr.annotations.Properties;
 import org.konurbaev.auction.Auction;
 import org.konurbaev.auction.spi.Auctioneer;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class SealedFirstPriceAuctioneer implements Auctioneer {
-    private static final String SEALED_FIRST_PRICE = "Sealed-First-Price";
-    private final int DURATION = 3;
-    private final Dictionary<String, Object> properties =
-            new Hashtable<String, Object>();
+@Component(
+        name = "org.konurbaev.auction.auctioneer.sealed.sealedfirstpriceauctioneer",
+        immediate = true
+)
+@Properties({
+        @Property(name = Auction.TYPE, value = {SealedFirstPriceAuctioneerConstants.SEALED_FIRST_PRICE}),
+        @Property(name = Auction.DURATION, value = {SealedFirstPriceAuctioneerConstants.DURATION})
+})
+@Service(Auctioneer.class)
+public class SealedFirstPriceAuctioneer implements Auctioneer, SealedFirstPriceAuctioneerConstants {
+
+    private final Dictionary<String, Object> properties = new Hashtable<>();
+
     private final Auction auction;
+    private final static Logger logger = LoggerFactory.getLogger(SealedFirstPriceAuctioneer.class);
+
+    @Activate
+    private void start() {
+        logger.debug("Activating SealedFirstPriceAuctioneer");
+    }
+
     public SealedFirstPriceAuctioneer() {
-        System.out.println("SealedFirstPriceAuctioneer constructor is starting...");
+        logger.debug("SealedFirstPriceAuctioneer constructor is starting...");
         properties.put(Auction.TYPE, SEALED_FIRST_PRICE);
         properties.put(Auction.DURATION, DURATION);
         auction = new SealedFirstPriceAuction(DURATION);
     }
+
     public Auction getAuction() {
-        System.out.println("SealedFirstPriceAuctioneer.getAuction() is starting...");
+        logger.debug("SealedFirstPriceAuctioneer.getAuction() is starting...");
         return auction;
     }
+
     public Dictionary<String, Object> getAuctionProperties() {
-        System.out.println("SealedFirstPriceAuctioneer.getAuctionProperties() is starting...");
+        logger.debug("SealedFirstPriceAuctioneer.getAuctionProperties() is starting...");
         return properties;
     }
+
 }

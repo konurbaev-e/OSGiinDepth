@@ -8,17 +8,18 @@ import org.osgi.framework.*;
 import org.konurbaev.auction.Auction;
 import org.konurbaev.auction.spi.Auctioneer;
 import org.konurbaev.auction.spi.Auditor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuctionManagerActivator implements BundleActivator, ServiceListener {
 
     private BundleContext bundleContext;
-    private Map<ServiceReference, ServiceRegistration> registeredAuctions =
-            new HashMap<ServiceReference, ServiceRegistration>();
-    private Map<ServiceReference, Auditor> registeredAuditors =
-            new HashMap<ServiceReference, Auditor>();
+    private Map<ServiceReference, ServiceRegistration> registeredAuctions = new HashMap<>();
+    private Map<ServiceReference, Auditor> registeredAuditors = new HashMap<>();
+    private final static Logger logger = LoggerFactory.getLogger(AuctionManagerActivator.class);
 
     public void start(BundleContext bundleContext) throws Exception {
-        System.out.println("AuctionManagerActivator is starting...");
+        logger.debug("AuctionManagerActivator is starting...");
         this.bundleContext = bundleContext;
 
         ServiceReference[] auctioneerReferences = bundleContext.getServiceReferences(Auctioneer.class.getName(),null);
@@ -35,14 +36,9 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
             }
         }
 
-        String auctionOrAuctioneerFilter =
-                "(|" +
-                        "(objectClass=" + Auctioneer.class.getName() + ")" +
-                        "(objectClass=" + Auditor.class.getName() + ")" +
-                        ")";
+        String auctionOrAuctioneerFilter = "(|" + "(objectClass=" + Auctioneer.class.getName() + ")" + "(objectClass=" + Auditor.class.getName() + ")" + ")";
 
-        bundleContext.addServiceListener(this,
-                auctionOrAuctioneerFilter);
+        bundleContext.addServiceListener(this, auctionOrAuctioneerFilter);
     }
 
     public void stop(BundleContext bundleContext) throws Exception {
@@ -50,7 +46,7 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
-        System.out.println("AuctionManagerActivator.serviceChanged is starting...");
+        logger.debug("AuctionManagerActivator.serviceChanged is starting...");
         ServiceReference serviceReference = serviceEvent.getServiceReference();
 
         switch (serviceEvent.getType()) {
@@ -59,8 +55,7 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
                 break;
             }
             case ServiceEvent.UNREGISTERING: {
-                String [] serviceInterfaces =
-                        (String[]) serviceReference.getProperty("objectClass");
+                String [] serviceInterfaces = (String[]) serviceReference.getProperty("objectClass");
                 if (Auctioneer.class.getName().equals(serviceInterfaces[0])) {
                     unregisterAuctioneer(serviceReference);
                 } else {
@@ -75,9 +70,8 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     private void registerService(ServiceReference serviceReference) {
-        System.out.println("AuctionManagerActivator.registerService is starting...");
-        Object serviceObject =
-                bundleContext.getService(serviceReference);
+        logger.debug("AuctionManagerActivator.registerService is starting...");
+        Object serviceObject = bundleContext.getService(serviceReference);
 
         if (serviceObject instanceof Auctioneer) {
             registerAuctioneer(serviceReference, (Auctioneer) serviceObject);
@@ -87,32 +81,30 @@ public class AuctionManagerActivator implements BundleActivator, ServiceListener
     }
 
     private void registerAuditor(ServiceReference auditorServiceReference, Auditor auditor) {
-        System.out.println("AuctionManagerActivator.registerAuditor is starting...");
+        logger.debug("AuctionManagerActivator.registerAuditor is starting...");
         registeredAuditors.put(auditorServiceReference, auditor);
     }
 
     private void registerAuctioneer(ServiceReference auctioneerServiceReference,
                                     Auctioneer auctioneer) {
-        System.out.println("AuctionManagerActivator.registerAuctioneer is starting...");
-        Auction auction =
-                new AuctionWrapper(auctioneer, registeredAuditors.values());
+        logger.debug("AuctionManagerActivator.registerAuctioneer is starting...");
+        Auction auction = new AuctionWrapper(auctioneer, registeredAuditors.values());
 
-        ServiceRegistration auctionServiceRegistration =
-                bundleContext.registerService(Auction.class.getName(),
-                        auction, auctioneer.getAuctionProperties());
+        ServiceRegistration auctionServiceRegistration = bundleContext.registerService(Auction.class.getName(),
+                                                                                       auction,
+                                                                                       auctioneer.getAuctionProperties());
 
         registeredAuctions.put(auctioneerServiceReference, auctionServiceRegistration);
     }
 
     private void unregisterAuditor(ServiceReference serviceReference) {
-        System.out.println("AuctionManagerActivator.unregisterAuditor is starting...");
+        logger.debug("AuctionManagerActivator.unregisterAuditor is starting...");
         registeredAuditors.remove(serviceReference);
     }
 
     private void unregisterAuctioneer(ServiceReference auctioneerServiceReference) {
-        System.out.println("AuctionManagerActivator.unregisterAuctioneer is starting...");
-        ServiceRegistration auctionServiceRegistration =
-                registeredAuctions.remove(auctioneerServiceReference);
+        logger.debug("AuctionManagerActivator.unregisterAuctioneer is starting...");
+        ServiceRegistration auctionServiceRegistration = registeredAuctions.remove(auctioneerServiceReference);
 
         if (auctionServiceRegistration != null) {
             auctionServiceRegistration.unregister();

@@ -6,24 +6,24 @@ import org.osgi.framework.*;
 import org.osgi.service.http.*;
 
 import org.konurbaev.auction.Auction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BuyerServletActivator implements BundleActivator, ServiceListener {
 
     private BundleContext bundleContext;
     private BidderServlet bidderServlet = new BidderServlet("Http Bidder");
     private HttpService httpService;
+    private final static Logger logger = LoggerFactory.getLogger(BuyerServletActivator.class);
 
     public void start(BundleContext bundleContext) throws Exception {
-        System.out.println("BuyerServletActivator is starting...");
+        logger.debug("BuyerServletActivator is starting...");
 
         this.bundleContext = bundleContext;
 
-        String filter =
-                "(&(objectClass=" + Auction.class.getName()
-                        + ")(" + Auction.TYPE + "=Sealed-First-Price))";
+        String filter = "(&(objectClass=" + Auction.class.getName() + ")(" + Auction.TYPE + "=Sealed-First-Price))";
 
-        ServiceReference[] serviceReferences =
-                bundleContext.getServiceReferences(Auction.class.getName(), filter);
+        ServiceReference[] serviceReferences = bundleContext.getServiceReferences(Auction.class.getName(), filter);
 
         if (serviceReferences != null) {
             start(serviceReferences[0]);
@@ -40,7 +40,7 @@ public class BuyerServletActivator implements BundleActivator, ServiceListener {
     }
 
     public void serviceChanged(ServiceEvent serviceEvent) {
-        System.out.println("BuyerServletActivator.serviceChanged is starting...");
+        logger.debug("BuyerServletActivator.serviceChanged is starting...");
         try {
             switch (serviceEvent.getType()) {
                 case ServiceEvent.REGISTERED: {
@@ -59,20 +59,16 @@ public class BuyerServletActivator implements BundleActivator, ServiceListener {
         }
     }
 
-    private void start(ServiceReference serviceReference)
-            throws ServletException, NamespaceException {
-        System.out.println("BuyerServletActivator (private void start) is starting...");
-        Auction auction = (Auction)
-                bundleContext.getService(serviceReference);
+    private void start(ServiceReference serviceReference) throws ServletException, NamespaceException {
+        logger.debug("BuyerServletActivator (private void start) is starting...");
+        Auction auction = (Auction) bundleContext.getService(serviceReference);
 
         if (auction != null) {
             bidderServlet.setAuction(auction);
 
-            ServiceReference ref =
-                    bundleContext.getServiceReference(HttpService.class.getName());
+            ServiceReference ref = bundleContext.getServiceReference(HttpService.class.getName());
 
-            httpService =
-                    (HttpService) bundleContext.getService(ref);
+            httpService = (HttpService) bundleContext.getService(ref);
             httpService.registerServlet("/bidder", bidderServlet, null, null);
         }
     }
