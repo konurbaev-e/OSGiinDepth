@@ -11,11 +11,10 @@ public class IntegrationTestAuction extends
         AbstractConfigurableBundleCreatorTests {
 
     public void testSealedFirstPriceAuction() {
-        ServiceReference reference =
-                bundleContext.getServiceReference(Auctioneer.class.getName());
 
-        Auction auction =
-                (Auction) bundleContext.getService(reference);
+        ServiceReference reference = bundleContext.getServiceReference(Auctioneer.class.getName());
+
+        Auction auction = (Auction) bundleContext.getService(reference);
 
         // Place bids, asks...
     }

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 public class BidderServlet implements Servlet, Participant {
 
     private Auction auction;
-    private String name;
+    private final String name;
     private PrintWriter writer;
     private final static Logger logger = LoggerFactory.getLogger(BidderServlet.class);
 

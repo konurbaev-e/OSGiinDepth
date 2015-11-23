@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
 
 public class AuctionWrapper implements Auction {
 
-    private Collection<Auditor> auditors;
-    private Auctioneer delegate;
-    private Map<String,List<Float>> bidsPerItem = new HashMap<>();
+    private final Collection<Auditor> auditors;
+    private final Auctioneer delegate;
+    private final Map<String,List<Float>> bidsPerItem = new HashMap<>();
     private float ask;
     private final static Logger logger = LoggerFactory.getLogger(AuctionWrapper.class);
 
     class ParticipantWrapper implements Participant {
 
-        private Participant delegate;
+        private final Participant delegate;
 
         public ParticipantWrapper(Participant delegate) {
             logger.debug("ParticipantWrapper constuctor is starting...");

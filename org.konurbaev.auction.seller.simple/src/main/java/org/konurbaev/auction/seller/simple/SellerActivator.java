@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class SellerActivator implements BundleActivator, ServiceListener {
     private BundleContext bundleContext;
-    private Seller seller = new Seller("Seller 1");
+    private final Seller seller = new Seller("Seller 1");
     private final static Logger logger = LoggerFactory.getLogger(Seller.class);
 
     public void start(BundleContext bundleContext) throws Exception {

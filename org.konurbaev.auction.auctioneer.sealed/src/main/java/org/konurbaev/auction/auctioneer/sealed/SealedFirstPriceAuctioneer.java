@@ -6,8 +6,6 @@ import org.apache.felix.scr.annotations.*;
 import org.apache.felix.scr.annotations.Properties;
 import org.konurbaev.auction.Auction;
 import org.konurbaev.auction.spi.Auctioneer;
-import org.osgi.service.event.EventConstants;
-import org.osgi.service.event.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +30,7 @@ public class SealedFirstPriceAuctioneer implements Auctioneer, SealedFirstPriceA
         logger.debug("Activating SealedFirstPriceAuctioneer");
     }
 
-    public SealedFirstPriceAuctioneer() {
+    private SealedFirstPriceAuctioneer() {
         logger.debug("SealedFirstPriceAuctioneer constructor is starting...");
         properties.put(Auction.TYPE, SEALED_FIRST_PRICE);
         properties.put(Auction.DURATION, DURATION);

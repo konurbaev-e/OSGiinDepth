@@ -15,7 +15,7 @@ public class SealedFirstPriceAuction implements Auction {
         Participant highestBidder;
         int numberOfBids;
     }
-    private Map<String, Book> openTransactions;
+    private final Map<String, Book> openTransactions;
     private final int maxAllowedBids;
     private final static Logger logger = LoggerFactory.getLogger(SealedFirstPriceAuction.class);
 

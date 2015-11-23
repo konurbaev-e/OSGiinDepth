@@ -1,17 +1,11 @@
 package org.konurbaev.auction.auctioneer.sealed;
 
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.konurbaev.auction.Auction;
 import org.konurbaev.auction.InvalidOfferException;
 import org.konurbaev.auction.Participant;
-import org.konurbaev.auction.spi.Auctioneer;
 
 public class TestSealedFirstPriceAuction {
 

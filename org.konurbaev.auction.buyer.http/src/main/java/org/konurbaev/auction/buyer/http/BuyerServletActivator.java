@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 public class BuyerServletActivator implements BundleActivator, ServiceListener {
 
     private BundleContext bundleContext;
-    private BidderServlet bidderServlet = new BidderServlet("Http Bidder");
+    private final BidderServlet bidderServlet = new BidderServlet("Http Bidder");
     private HttpService httpService;
     private final static Logger logger = LoggerFactory.getLogger(BuyerServletActivator.class);
 

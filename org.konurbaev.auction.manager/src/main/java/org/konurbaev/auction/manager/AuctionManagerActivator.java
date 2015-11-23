@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 public class AuctionManagerActivator implements BundleActivator, ServiceListener {
 
     private BundleContext bundleContext;
-    private Map<ServiceReference, ServiceRegistration> registeredAuctions = new HashMap<>();
-    private Map<ServiceReference, Auditor> registeredAuditors = new HashMap<>();
+    private final Map<ServiceReference, ServiceRegistration> registeredAuctions = new HashMap<>();
+    private final Map<ServiceReference, Auditor> registeredAuditors = new HashMap<>();
     private final static Logger logger = LoggerFactory.getLogger(AuctionManagerActivator.class);
 
     public void start(BundleContext bundleContext) throws Exception {
